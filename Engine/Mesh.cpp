@@ -4,6 +4,7 @@
 
 void Mesh::Init(vector<Vertex>& vec)
 {
+	//점이 몇개인가
 	_vertexCount = static_cast<uint32>(vec.size());
 	uint32 bufferSize = _vertexCount * sizeof(Vertex);
 
@@ -20,7 +21,7 @@ void Mesh::Init(vector<Vertex>& vec)
 		IID_PPV_ARGS(&_vertexBuffer));
 
 	// Copy the triangle data to the vertex buffer.
-	//! CPU -> GPU
+	//! CPU -> GPU(즉시 실행됨)
 	void* vertexDataBuffer = nullptr;
 	CD3DX12_RANGE readRange(0, 0); // We do not intend to read from this resource on the CPU.
 	_vertexBuffer->Map(0, &readRange, &vertexDataBuffer);
@@ -37,5 +38,14 @@ void Mesh::Render()
 {
 	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBufferView); // Slot: (0~15)
+	//!TODO
+	//! 1) Buffer에다가 데이터 세팅 (즉시)
+	//! 2) Buffer의 주소를 reguster에다가 전송 (나중에)
+	//~ 실행시점이 다르기 떄문에 cmdQueue를 사용할때는 주의해야함
+	//!  --> buffer를 여러개 만들어서 해결
+	
+	GEngine->GetCB()->PushData(0, &_transform, sizeof(_transform));
+	GEngine->GetCB()->PushData(1, &_transform, sizeof(_transform));
+
 	CMD_LIST->DrawInstanced(_vertexCount, 1, 0, 0);
 }
