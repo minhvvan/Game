@@ -10,6 +10,7 @@
 #include "ConstantBuffer.h"
 #include "TableDescriptorHeap.h"
 #include "Texture.h"
+#include "DepthStencilBuffer.h"
 
 class Engine
 {
@@ -24,6 +25,7 @@ public:
 	shared_ptr<RootSignature> GetRootSignature(){ return _rootSignature; }
 	shared_ptr<ConstantBuffer> GetCB(){ return _cb; }
 	shared_ptr<TableDescriptorHeap> GetTableDescHeap(){ return _tableDescHeap; }
+	shared_ptr<DepthStencilBuffer> GetDepthStencilBuffer(){ return _depthStencilBuffer; }
 
 public:
 	void RenderBegin();
@@ -42,5 +44,6 @@ private:
 	shared_ptr<RootSignature> _rootSignature;
 	shared_ptr<ConstantBuffer> _cb;
 	shared_ptr<TableDescriptorHeap> _tableDescHeap;
+	shared_ptr<DepthStencilBuffer> _depthStencilBuffer;
 };
 
