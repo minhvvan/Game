@@ -38,9 +38,9 @@ void Game::Init(const WindowInfo& info)
 
 	mesh->Init(vec, indexVec);
 
-	shader->Init(L"..\\Resource\\Shader\\default.hlsli");
+	shader->Init(L"..\\Resources\\Shader\\default.hlsli");
 
-	texture->Init(L"..\\Resource\\Texture\\veigar.jpg");
+	texture->Init(L"..\\Resources\\Texture\\veigar.jpg");
 
 	GEngine->GetCmdQueue()->WaitSync();
 }
