@@ -45,18 +45,18 @@ using namespace Microsoft::WRL;
 #endif
 
 // °¢Á¾ typedef
-using int8 = __int8;
-using int16 = __int16;
-using int32 = __int32;
-using int64 = __int64;
-using uint8 = unsigned __int8;
-using uint16 = unsigned __int16;
-using uint32 = unsigned __int32;
-using uint64 = unsigned __int64;
-using Vec2 = XMFLOAT2;
-using Vec3 = XMFLOAT3;
-using Vec4 = XMFLOAT4;
-using Matrix = XMMATRIX;
+using int8		= __int8;
+using int16		= __int16;
+using int32		= __int32;
+using int64		= __int64;
+using uint8		= unsigned __int8;
+using uint16	= unsigned __int16;
+using uint32	= unsigned __int32;
+using uint64	= unsigned __int64;
+using Vec2		= XMFLOAT2;
+using Vec3		= XMFLOAT3;
+using Vec4		= XMFLOAT4;
+using Matrix	= XMMATRIX;
 
 enum class CBV_REGISTER : uint8
 {
@@ -112,5 +112,8 @@ struct Transform
 #define CMD_LIST			GEngine->GetCmdQueue()->GetCmdList()
 #define RESOURCE_CMD_LIST	GEngine->GetCmdQueue()->GetResourceCmdList()
 #define ROOT_SIGNATURE		GEngine->GetRootSignature()->GetSignature()
+
+#define INPUT				GEngine->GetInput()
+#define DELTA_TIME			GEngine->GetTimer()->GetDeltaTime()
 
 extern unique_ptr<class Engine> GEngine;
