@@ -31,16 +31,15 @@ public:
 	void SetParent(shared_ptr<Transform> parent) { _parent = parent; }
 	weak_ptr<Transform> GetParent() { return _parent; }
 
-
 private:
 	// Parent ±‚¡ÿ
 	Vec3 _localPosition = {};
 	Vec3 _localRotation = {};
-	Vec3 _localScale = { 1.f,1.f,1.f };
+	Vec3 _localScale = { 1.f, 1.f, 1.f };
 
 	Matrix _matLocal = {};
 	Matrix _matWorld = {};
-	
+
 	weak_ptr<Transform> _parent;
 };
 
