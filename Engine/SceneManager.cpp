@@ -68,11 +68,14 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		{
 			shared_ptr<Shader> shader = make_shared<Shader>();
 			shared_ptr<Texture> texture = make_shared<Texture>();
+			shared_ptr<Texture> texture2 = make_shared<Texture>();
 			shader->Init(L"..\\Resources\\Shader\\default.hlsli");
-			texture->Init(L"..\\Resources\\Texture\\veigar.jpg");
+			texture->Init(L"..\\Resources\\Texture\\Leather.jpg");
+			texture2->Init(L"..\\Resources\\Texture\\Leather_Normal.jpg");
 			shared_ptr<Material> material = make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(0, texture);
+			material->SetTexture(1, texture2);
 			meshRenderer->SetMaterial(material);
 		}
 		sphere->AddComponent(meshRenderer);
@@ -88,9 +91,9 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		light->AddComponent(make_shared<Light>());
 		light->GetLight()->SetLightDirection(Vec3(1.f, 0.f, 1.f));
 		light->GetLight()->SetLightType(LIGHT_TYPE::DIRECTIONAL_LIGHT);
-		light->GetLight()->SetDiffuse(Vec3(0.4f, 0.4f, 0.4f));
+		light->GetLight()->SetDiffuse(Vec3(0.5f, 0.5f, 0.5f));
 		light->GetLight()->SetAmbient(Vec3(0.1f, 0.1f, 0.1f));
-		light->GetLight()->SetSpecular(Vec3(0.4f, 0.4f, 0.4f));
+		light->GetLight()->SetSpecular(Vec3(0.1f, 0.1f, 0.1f));
 
 		scene->AddGameObject(light);
 	}
