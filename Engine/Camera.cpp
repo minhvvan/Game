@@ -24,32 +24,35 @@ void Camera::FinalUpdate()
 
 	float width = static_cast<float>(GEngine->GetWindow().width);
 	float height = static_cast<float>(GEngine->GetWindow().height);
-	
+
 	if (_type == PROJECTION_TYPE::PERSPECTIVE)
 		_matProjection = ::XMMatrixPerspectiveFovLH(_fov, width / height, _near, _far);
 	else
-		_matProjection = ::XMMatrixOrthographicRH(width * _scale, height * _scale, _near, _far);
-
-	S_MatView = _matView;
-	S_MatProjection = _matProjection;
+		_matProjection = ::XMMatrixOrthographicLH(width * _scale, height * _scale, _near, _far);
 
 	_frustum.FinalUpdate();
 }
 
-
 void Camera::Render()
 {
+	S_MatView = _matView;
+	S_MatProjection = _matProjection;
+
 	shared_ptr<Scene> scene = GET_SINGLE(SceneManager)->GetActiveScene();
 
-	//! TODO : Layer 구분
+	// TODO : Layer 구분
 	const vector<shared_ptr<GameObject>>& gameObjects = scene->GetGameObjects();
 
 	for (auto& gameObject : gameObjects)
 	{
-		if (gameObject->GetMeshRenderer() == nullptr) continue;
+		if (gameObject->GetMeshRenderer() == nullptr)
+			continue;
 
+		if (IsCulled(gameObject->GetLayerIndex()))
+			continue;
 
-		if (gameObject->GetCheckFrustum()) {
+		if (gameObject->GetCheckFrustum())
+		{
 			if (_frustum.ContainsSphere(
 				gameObject->GetTransform()->GetWorldPosition(),
 				gameObject->GetTransform()->GetBoundingSphereRadius()) == false)
@@ -57,7 +60,6 @@ void Camera::Render()
 				continue;
 			}
 		}
-
 
 		gameObject->GetMeshRenderer()->Render();
 	}

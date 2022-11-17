@@ -3,8 +3,8 @@
 #include "Transform.h"
 #include "MeshRenderer.h"
 #include "Camera.h"
-#include "MonoBehaviour.h"
 #include "Light.h"
+#include "MonoBehaviour.h"
 
 GameObject::GameObject() : Object(OBJECT_TYPE::GAMEOBJECT)
 {
@@ -114,7 +114,6 @@ shared_ptr<Light> GameObject::GetLight()
 
 void GameObject::AddComponent(shared_ptr<Component> component)
 {
-	//this를 넘기기 위해 weak_ptr을 만든다
 	component->SetGameObject(shared_from_this());
 
 	uint8 index = static_cast<uint8>(component->GetType());
