@@ -6,7 +6,6 @@
 #include "ConstantBuffer.h"
 #include "Light.h"
 
-
 void Scene::Awake()
 {
 	for (const shared_ptr<GameObject>& gameObject : _gameObjects)
@@ -49,15 +48,31 @@ void Scene::FinalUpdate()
 
 void Scene::Render()
 {
-	//Light setting
 	PushLightData();
+
+	// SwapChain Group 초기화
+	int8 backIndex = GEngine->GetSwapChain()->GetBackBufferIndex();
+	GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::SWAP_CHAIN)->ClearRenderTargetView(backIndex);
+
+	// Deferred Group 초기화
+	GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::G_BUFFER)->ClearRenderTargetView();
 
 	for (auto& gameObject : _gameObjects)
 	{
 		if (gameObject->GetCamera() == nullptr)
 			continue;
 
-		gameObject->GetCamera()->Render();
+		gameObject->GetCamera()->SortGameObject();
+
+		// Deferred OMSet
+		GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::G_BUFFER)->OMSetRenderTargets();
+		gameObject->GetCamera()->Render_Deferred();
+
+		// Light OMSet
+
+		// Swapchain OMSet
+		GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::SWAP_CHAIN)->OMSetRenderTargets(1, backIndex);
+		gameObject->GetCamera()->Render_Forward();
 	}
 }
 
@@ -70,9 +85,9 @@ void Scene::PushLightData()
 		if (gameObject->GetLight() == nullptr)
 			continue;
 
-		const LightInfo& lightinfo = gameObject->GetLight()->GetLightInfo();
+		const LightInfo& lightInfo = gameObject->GetLight()->GetLightInfo();
 
-		lightParams.lights[lightParams.lightCount] = lightinfo;
+		lightParams.lights[lightParams.lightCount] = lightInfo;
 		lightParams.lightCount++;
 	}
 
