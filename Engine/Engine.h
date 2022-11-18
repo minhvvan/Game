@@ -11,19 +11,14 @@
 #include "Texture.h"
 #include "RenderTargetGroup.h"
 
-
 class Engine
 {
 public:
-
 	void Init(const WindowInfo& info);
 	void Update();
 
 public:
-	void LateUpdate();
-
-public:
-	const WindowInfo& GetWindow() { return _window; };
+	const WindowInfo& GetWindow() { return _window; }
 	shared_ptr<Device> GetDevice() { return _device; }
 	shared_ptr<CommandQueue> GetCmdQueue() { return _cmdQueue; }
 	shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
