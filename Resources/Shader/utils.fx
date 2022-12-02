@@ -65,7 +65,7 @@ LightColor CalculateLightColor(int lightIndex, float3 viewNormal, float3 viewPos
     float3 reflectionDir = normalize(viewLightDir + 2 * (saturate(dot(-viewLightDir, viewNormal)) * viewNormal));
     float3 eyeDir = normalize(viewPos);
     specularRatio = saturate(dot(-eyeDir, reflectionDir));
-    specularRatio = pow(specularRatio, 5);
+    specularRatio = pow(specularRatio, 2);
 
     color.diffuse = g_light[lightIndex].color.diffuse * diffuseRatio * distanceRatio;
     color.ambient = g_light[lightIndex].color.ambient * distanceRatio;
@@ -79,5 +79,18 @@ float Rand(float2 co)
     return 0.5 + (frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453)) * 0.5;
 }
 
+float CalculateTessLevel(float3 cameraWorldPos, float3 patchPos, float min, float max, float maxLv)
+{
+    float distance = length(patchPos - cameraWorldPos);
+
+    if (distance < min)
+        return maxLv;
+    if (distance > max)
+        return 1.f;
+
+    float ratio = (distance - min) / (max - min);
+    float level = (maxLv - 1.f) * (1.f - ratio);
+    return level;
+}
 
 #endif
