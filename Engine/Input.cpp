@@ -20,10 +20,8 @@ void Input::Update()
 	}
 
 	BYTE asciiKeys[KEY_TYPE_COUNT] = {};
-	if(::GetKeyboardState(asciiKeys) == false)
-	{
+	if (::GetKeyboardState(asciiKeys) == false)
 		return;
-	}
 
 	for (uint32 key = 0; key < KEY_TYPE_COUNT; key++)
 	{

@@ -11,19 +11,19 @@
       <UniqueIdentifier>{710a24eb-3b22-4cba-b53b-42897f27a6d4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Manager">
-      <UniqueIdentifier>{ccf83101-f435-4140-8fdd-ceda8d86da34}</UniqueIdentifier>
+      <UniqueIdentifier>{25b3214d-e145-4b49-8e9d-908a06998ffa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
-      <UniqueIdentifier>{757d3920-1e93-4185-8e60-26b8a86e9be7}</UniqueIdentifier>
+      <UniqueIdentifier>{dd23f47d-3ac2-4f96-9bfe-4a6fac248639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Test">
+      <UniqueIdentifier>{1cfe4b64-4ca1-4958-b16f-73f8ae1985c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Component">
-      <UniqueIdentifier>{25902f57-4d4c-4baa-87f9-9a3e5122b64a}</UniqueIdentifier>
+      <UniqueIdentifier>{915d1c10-9db1-4fdb-887a-d0160f593ea1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Resource">
       <UniqueIdentifier>{c5612518-9c4d-408d-926a-9312743d39fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Test">
-      <UniqueIdentifier>{39138e34-1c5c-4453-b606-358c4ea11c58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,10 +66,13 @@
     <ClCompile Include="Material.cpp">
       <Filter>Object\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Manager</Filter>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
@@ -81,13 +84,13 @@
     <ClCompile Include="SimpleMath.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="TestCameraScript.cpp">
+      <Filter>Object\Test</Filter>
+    </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -105,9 +108,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="TestCameraScript.cpp">
-      <Filter>Object\Test</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
@@ -117,11 +117,11 @@
     <ClCompile Include="RenderTargetGroup.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="StructuredBuffer.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="InstancingBuffer.cpp">
       <Filter>Engine</Filter>
@@ -173,10 +173,13 @@
     <ClInclude Include="Material.h">
       <Filter>Object\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Manager</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
@@ -188,13 +191,13 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="TestCameraScript.h">
+      <Filter>Object\Test</Filter>
+    </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -212,9 +215,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="TestCameraScript.h">
-      <Filter>Object\Test</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
@@ -224,11 +224,11 @@
     <ClInclude Include="RenderTargetGroup.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="StructuredBuffer.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuredBuffer.h">
+      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="InstancingBuffer.h">
       <Filter>Engine</Filter>
@@ -243,9 +243,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Resources\Shader\forward.fx">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="..\Resources\Shader\params.fx">
       <Filter>Shader</Filter>
     </FxCompile>
@@ -253,6 +250,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Resources\Shader\utils.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Resources\Shader\forward.fx">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Resources\Shader\deferred.fx">
@@ -268,6 +268,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Resources\Shader\shadow.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Resources\Shader\tessellation.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
