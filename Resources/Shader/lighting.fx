@@ -61,8 +61,8 @@ PS_OUT PS_DirLight(VS_OUT input)
         float4 shadowClipPos = mul(worldPos, shadowCameraVP);
         float depth = shadowClipPos.z / shadowClipPos.w;
 
-        //! x [-1 ~ 1] -> u [0 ~ 1]
-        //! y [1 ~ -1] -> v [0 ~ 1]
+        // x [-1 ~ 1] -> u [0 ~ 1]
+        // y [1 ~ -1] -> v [0 ~ 1]
         float2 uv = shadowClipPos.xy / shadowClipPos.w;
         uv.y = -uv.y;
         uv = uv * 0.5 + 0.5;

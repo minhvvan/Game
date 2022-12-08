@@ -12,7 +12,7 @@ struct LightInfo
 {
     LightColor  color;
     float4	    position;
-    float4	    direction;
+    float4	    direction; 
     int		    lightType;
     float	    range;
     float	    angle;
@@ -69,6 +69,8 @@ Texture2D g_tex_1 : register(t1);
 Texture2D g_tex_2 : register(t2);
 Texture2D g_tex_3 : register(t3);
 Texture2D g_tex_4 : register(t4);
+
+StructuredBuffer<Matrix> g_mat_bone : register(t7);
 
 SamplerState g_sam_0 : register(s0);
 
